@@ -1,0 +1,8 @@
+<app-header [user]="user" (op)="setUser($event)"></app-header>
+
+<div class="container">
+  <app-login *ngIf="!user" [user]="user" (op)="setUser($event)"></app-login>
+  <app-home *ngIf="user" [user]="user" [isLoading]="isLoading" (op)="setLoader($event)"></app-home>
+  <router-outlet></router-outlet>
+  <app-loader *ngIf="isLoading"></app-loader>
+</div>
