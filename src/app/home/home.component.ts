@@ -1,5 +1,7 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {User} from '../user';
+import {UserService} from '../user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,21 +9,20 @@ import {User} from '../user';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  @Input() user: User;
-  @Input() isLoading: boolean;
-  @Output() op = new EventEmitter<boolean>();
+  isLoading = true;
+  user: User = null;
+  problemNum = null;
 
-  constructor() { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
-
+    this.user = this.userService.getUser();
+    this.isLoading = false;
   }
 
-  loadProblem(){
-    this.op.emit(true);
-    const self = this;
-    setTimeout(() => {
-      self.op.emit(false);
-    }, 5000);
+  loadProblem() {
+    if (this.problemNum && !isNaN(this.problemNum)) {
+      this.router.navigateByUrl('/problem/' + this.problemNum);
+    }
   }
 }

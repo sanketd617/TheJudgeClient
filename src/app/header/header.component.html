@@ -3,6 +3,7 @@
     <a href="javascript: void (0)" class="brand-logo">&nbsp;&nbsp; {{ appName }}</a>
     <ul *ngIf="user" id="nav-mobile" class="right hide-on-med-and-down">
       <li><a href="javascript: void(0)">{{ user.fname }}</a></li>
+      <li><a routerLink="/submissions">Submissions</a></li>
       <li><a (click)="logout()">Logout</a></li>
     </ul>
   </div>

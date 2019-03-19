@@ -8,7 +8,9 @@ import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { LoaderComponent } from './loader/loader.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ProblemComponent } from './problem/problem.component';
+import {ProblemComponent, SafePipe} from './problem/problem.component';
+import { HttpClientModule} from '@angular/common/http';
+import {AceEditorDirective} from 'ng2-ace-editor';
 
 @NgModule({
   declarations: [
@@ -18,11 +20,14 @@ import { ProblemComponent } from './problem/problem.component';
     HomeComponent,
     LoaderComponent,
     ProblemComponent,
+    SafePipe,
+    AceEditorDirective,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
+    HttpClientModule,
   ],
   exports: [],
   providers: [],

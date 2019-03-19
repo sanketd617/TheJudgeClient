@@ -1,3 +1,79 @@
-<p>
-  problem works!
-</p>
+<div>
+  <div><h4>{{ problemTitle }}</h4></div>
+  <div>{{ problemTimeLimit }} </div>
+
+  <ul class="collection with-header">
+    <li class="collection-header">
+      <a (click)="statementVisible = !statementVisible" href="javascript: void(0)" class="secondary-content" [ngClass]="statementVisible ? 'green-text' : 'grey-text'">
+        &nbsp;&nbsp;<i class="material-icons">{{ statementVisible ? "expand_less" : "expand_more" }}</i>
+      </a>
+      <b>Problem</b>
+      <a (click)="pdfView = !pdfView" href="javascript: void(0)" class="secondary-content" [ngClass]="pdfView ? 'green-text' : 'grey-text'">
+        <i class="material-icons">picture_as_pdf</i>
+      </a>
+    </li>
+    <li *ngIf="statementVisible" class="collection-item">
+      <div *ngIf="pdfView">
+        <iframe [src]="pdfLink | safeURL" type="application/pdf" height="500" width="100%"></iframe>
+      </div>
+      <div *ngIf="!pdfView" [innerHTML]="problemStatement"></div>
+    </li>
+    <li class="collection-header">
+      <b>Input Format</b>
+      <a (click)="inputFormatVisible = !inputFormatVisible" href="javascript: void(0)" class="secondary-content" [ngClass]="inputFormatVisible ? 'green-text' : 'grey-text'">
+        &nbsp;&nbsp;<i class="material-icons">{{ inputFormatVisible ? "expand_less" : "expand_more" }}</i>
+      </a>
+    </li>
+    <li *ngIf="inputFormatVisible" class="collection-item" [innerHTML]="inputFormat"></li>
+    <li class="collection-header">
+      <b>Output Format</b>
+      <a (click)="outputFormatVisible = !outputFormatVisible" href="javascript: void(0)" class="secondary-content" [ngClass]="outputFormatVisible ? 'green-text' : 'grey-text'">
+        &nbsp;&nbsp;<i class="material-icons">{{ outputFormatVisible ? "expand_less" : "expand_more" }}</i>
+      </a>
+    </li>
+    <li *ngIf="outputFormatVisible" class="collection-item" [innerHTML]="outputFormat"></li>
+    <li class="collection-header">
+      <b>Sample Input</b>
+      <a (click)="sampleInputVisible = !sampleInputVisible" href="javascript: void(0)" class="secondary-content" [ngClass]="sampleInputVisible ? 'green-text' : 'grey-text'">
+        &nbsp;&nbsp;<i class="material-icons">{{ sampleInputVisible ? "expand_less" : "expand_more" }}</i>
+      </a>
+    </li>
+    <li *ngIf="sampleInputVisible" class="collection-item" [innerHTML]="sampleInput"></li>
+    <li class="collection-header">
+      <b>Sample Output</b>
+      <a (click)="sampleOutputVisible = !sampleOutputVisible" href="javascript: void(0)" class="secondary-content" [ngClass]="sampleOutputVisible ? 'green-text' : 'grey-text'">
+        &nbsp;&nbsp;<i class="material-icons">{{ sampleOutputVisible ? "expand_less" : "expand_more" }}</i>
+      </a>
+    </li>
+    <li *ngIf="sampleOutputVisible" class="collection-item" [innerHTML]="sampleOutput"></li>
+    <li class="collection-item">
+      <div id="editor" ace-editor
+           [(text)]="code"
+           [mode]="'python'"
+           [theme]="'chrome'"
+           [options]="options"
+           [readOnly]="false"
+           [autoUpdateContent]="true"
+           [durationBeforeCallback]="1000"
+           (textChanged)="onCodeChange($event)"
+      ></div>
+      <style type="text/css" media="screen">
+        #editor {
+          position: relative;
+          height: 500px;
+          width: 100%;
+        }
+      </style>
+    </li>
+    <script>
+      var editor = ace.edit("editor");
+      editor.setTheme("../../assets/js/ace/theme/texmate");
+      editor.session.setMode("ace/mode/javascript");
+    </script>
+  </ul>
+
+</div>
+<app-loader *ngIf="isLoading"></app-loader>
+
+
+

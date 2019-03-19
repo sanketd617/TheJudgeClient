@@ -5,6 +5,7 @@
       <div class="card-content">
         <div class="row center">
           <h4>{{ user.fname+" "+user.lname }}</h4>
+          <div class="grey-text">{{ user.username }}</div>
         </div>
       </div>
     </div>
@@ -12,11 +13,11 @@
 </div>
 
 <div class="row">
-  <form class="col s12">
+  <form class="col s12" name="problemForm">
     <div class="row">
       <div class="input-field col s9">
         <!--<i class="material-icons prefix">search</i>-->
-        <input id="problemNo" type="text" class="validate">
+        <input id="problemNo" type="text" class="validate" name="problemNum" [(ngModel)]="problemNum">
         <label for="problemNo">Find problem</label>
       </div>
       <div class="input-field col s3">
@@ -26,3 +27,5 @@
     </div>
   </form>
 </div>
+
+<app-loader *ngIf="isLoading"></app-loader>
